@@ -1,18 +1,24 @@
 Angular Evaluation
 ===========
 
-Single-Page App (SAP) in AngularJS, using REST service.
+Single-Page App (SPA) in AngularJS, using REST service.
 
 ## Requirements
 
 ```
 python 2.7
-node
 bower
 grunt
 ```
 
 ## How to use
+
+- Install dependencies and libraries by opening a command prompt, navigate to the program directory and run:
+```
+npm install
+bower install angular
+bower install angular-route
+```
 
 - Start the python server by opening a command prompt, navigate to the program directory and run:
 ```
