@@ -18,6 +18,7 @@ grunt
 npm install
 bower install angular
 bower install angular-route
+bower install bootstrap
 ```
 
 - Start the python server by opening a command prompt, navigate to the program directory and run:
