@@ -1,9 +1,15 @@
 angular.module("EvalApp").controller("LoginCtrl",
-["$scope", "LoginFactory",
-function ($scope, LoginFactory) {
+["$scope", "$location", "LoginFactory",
+function ($scope, $location, LoginFactory) {
 	
-	$scope.signIn = function (username, password) {
-		LoginFactory.login(username, password);
+	$scope.login = function (username, password) {
+		if (LoginFactory.login(username, password)) {
+			$location.path("/index");
+		}
+		else {
+			// TODO: Birta vinarleg error message fyrir notanda.
+			console.log("Login in false!");
+		}
 	};
 	
 }]);
