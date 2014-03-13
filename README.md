@@ -18,6 +18,7 @@ grunt
 npm install
 bower install angular
 bower install angular-route
+bower install angular-mocks
 bower install bootstrap
 ```
 
