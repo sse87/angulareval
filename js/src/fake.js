@@ -1,4 +1,4 @@
-angular.module("EvalApp", ["ngMock"]).controller("FakeCtrl", ["$scope", function ($scope) {
+angular.module("EvalApp").controller("FakeCtrl", ["$scope", function ($scope) {
 
 	console.log("FakeCtrl running!\n");
 
