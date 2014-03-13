@@ -31,8 +31,28 @@ module.exports = function(grunt) {
     
     watch: {
       scripts: {
-        files: ['js/src/*.js'],
-        tasks: ['jshint', 'concat', 'uglify']
+        files: ['js/src/*.js', 'style/*.less'],
+        tasks: ['jshint', 'concat', 'uglify', 'less']
+      }
+    },
+    
+    less: {
+      development: {
+        options: {
+          paths: ["build"]
+        },
+        files: {
+          "build/main.css": "style/point.less"
+        }
+      },
+      production: {
+        options: {
+          paths: ["build"],
+          cleancss: true
+        },
+        files: {
+          "build/main.min.css": "style/point.less"
+        }
       }
     }
     
@@ -43,8 +63,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-less');
  
   // Default task(s).
   grunt.registerTask('dev', ['watch']);
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'less']);
 };
