@@ -1,7 +1,7 @@
 describe("A testing of angular tests", function () {
  
 	var $scope;
-	var ctrl;
+	var controller;
 
 
 	beforeEach(function () {
@@ -11,7 +11,7 @@ describe("A testing of angular tests", function () {
 		
 			// create a new scope
 			$scope = $rootScope.$new();
-			ctrl = $controller("FakeCtrl", {$scope: $scope});
+			controller = $controller("FakeCtrl", {$scope: $scope});
 		});
 	});
 	// The ctrl variable should now be available to all the tests in 

@@ -1,3 +1,4 @@
+// Fake is only used for testing purposes and can be deleted with out affecting the site
 angular.module("EvalApp", ["ng", "ngRoute"])
 .config(["$routeProvider", function ($routeProvider) {
 	
@@ -10,7 +11,6 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 	}).when("/about", {
 		templateUrl: "/view/about.html",
 		controller: "AboutCtrl"
-	// Fake is only used for testing purposes and can be deleted with out affecting the site
 	}).when("/fake", {
 		templateUrl: "/view/fake.html",
 		controller: "FakeCtrl"
