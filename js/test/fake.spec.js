@@ -1,14 +1,27 @@
-describe("A suite", function() {
+describe("A testing of angular tests", function () {
  
-	var fake;
+	var $scope;
+	var ctrl;
 
-	beforeEach(function() {
-		fake = new Fake();
+
+	beforeEach(function () {
+		
+		module("EvalApp");
+		inject(function($controller, $rootScope) {
+		
+			// create a new scope
+			$scope = $rootScope.$new();
+			ctrl = $controller("FakeCtrl", {$scope: $scope});
+		});
+	});
+	// The ctrl variable should now be available to all the tests in 
+	// this suit and should reference FakeCtrl
+
+	it("should test test in angular", function () {
+		var result = $scope.fakeVar;
+
+		expect(result).toEqual("Fake text hello");
 	});
 
- 	it("test this fake file", function() {
- 		var result = fake.sum(1, 1);
- 		
- 		expect(result).toBe(2);
-	});
 });
+

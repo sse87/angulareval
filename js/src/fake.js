@@ -1,7 +1,8 @@
-function Fake(){
+angular.module("EvalApp", ['ngMock']).controller("FakeCtrl", ["$scope", function ($scope) {
 
-}
+	console.log("FakeCtrl running!\n");
+	console.log("FakeCtrl running!\n");
+	console.log("FakeCtrl running!\n");
 
-Fake.prototype.sum = function (a, b) {
-	return a + b;
-}
+	$scope.fakeVar = "Fake text hello";
+}]);

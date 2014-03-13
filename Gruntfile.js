@@ -7,13 +7,13 @@ module.exports = function(grunt) {
     
     jshint: {
       build: {
-        src: 'js/*.js'
+        src: 'js/src/*.js'
       },
     },
 
     concat: {
       foo: {
-        src: ['js/main.js', 'js/*.js'],
+        src: ['js/src/main.js', 'js/src/*.js'],
         dest: 'build/<%= pkg.name %>.js'
       }
  
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     
     watch: {
       scripts: {
-        files: ['js/*.js'],
+        files: ['js/src/*.js'],
         tasks: ['jshint', 'concat', 'uglify']
       }
     }
