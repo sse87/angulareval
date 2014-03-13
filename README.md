@@ -16,10 +16,7 @@ grunt
 - Install dependencies and libraries by opening a command prompt, navigate to the program directory and run:
 ```
 npm install
-bower install angular
-bower install angular-route
-bower install angular-mocks
-bower install bootstrap
+bower install
 ```
 
 - Start the python server by opening a command prompt, navigate to the program directory and run:
