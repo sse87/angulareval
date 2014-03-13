@@ -22,12 +22,14 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 angular.module("EvalApp").factory("LoginFactory", [
 "$http", "$q",
 function($http, $q) {
-	var username, role, token;
+	var username = "";
+	var role = "";
+	var token = "";
 	return {
 		login: function(name, password) {
 			var deferred = $q.defer();
 
-			$http.post("/api/v1/login", { user: name, pass: password })
+			$http.post("http://dispatch.ru.is/h19/api/v1/login", { user: name, pass: password })
 			.success(function(data, status, headers) {
 				username = name;
 				token = data.token;

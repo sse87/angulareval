@@ -1,7 +1,9 @@
 angular.module("EvalApp").controller("LoginCtrl",
-["$scope",
-function ($scope) {
+["$scope", "LoginFactory",
+function ($scope, LoginFactory) {
 	
-	
+	$scope.signIn = function (username, password) {
+		LoginFactory.login(username, password);
+	};
 	
 }]);
