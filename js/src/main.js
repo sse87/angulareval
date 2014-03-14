@@ -7,7 +7,17 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 		controller: "LoginCtrl"
 	}).when("/index", {
 		templateUrl: "/view/index.html",
-		controller: "HomeCtrl"
+		controller: "HomeCtrl",
+		resolve: {
+			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
+				// Redirect to login if username is missing
+				if (LoginFactory.getUsername() === "") {
+					console.log("Redirected to /login because username was empty!");
+					$location.path("/login");
+					return;
+				}
+			}]
+		}
 	}).when("/about", {
 		templateUrl: "/view/about.html",
 		controller: "AboutCtrl"
@@ -19,44 +29,50 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 }]);
 
 
-angular.module("EvalApp").factory("LoginFactory", [
-"$http", "$q",
+angular.module("EvalApp").factory("LoginFactory",
+["$http", "$q",
 function($http, $q) {
 	var username = "";
-	var role = "";
 	var token = "";
+	var email = "";
+	var fullName = "";
+	var imageUrl = "";
+	var role = "";
+	var ssn = "";
 	return {
 		login: function(name, password) {
 			var deferred = $q.defer();
-
 			$http.post("http://dispatch.ru.is/h19/api/v1/login", { user: name, pass: password })
 			.success(function(data, status, headers) {
+				console.log(data);
 				username = name;
-				token = data.token;
-				role = data.role;
-				deferred.resolve({ username: name, role: data.role, token: data.token });
+				token = data.Token;
+				email = data.User.Email;
+				fullName = data.User.FullName;
+				imageUrl = data.User.ImageUrl;
+				role = data.User.Role;
+				ssn = data.User.SSN;
+				deferred.resolve({ username: name, token: data.token });
 			}).error(function() {
 				deferred.reject();
 			});
 
 			return deferred.promise;
 		},
-		getToken: function() {
-			return token;
-		},
-		getUsername: function() {
-			return username;
-		},
-		getRole: function() {
-			return role;
-		}
+		getUsername: function() { return username; },
+		getToken: function() { return token; },
+		getEmail: function() { return email; },
+		getFullName: function() { return fullName; },
+		getImageUrl: function() { return imageUrl; },
+		getRole: function() { return role; },
+		getSSN: function() { return ssn; }
 	};
 }]);
 
 
 
-angular.module("EvalApp").factory("ApiFactory", [
-"$q",
+angular.module("EvalApp").factory("ApiFactory",
+["$q",
 function($q) {
 	var evaluations = generateEvaluations();
 	return {
@@ -78,7 +94,7 @@ function($q) {
 		addEvaluation: function(evaluation) {
 			var deferred = $q.defer();
 			
-			
+			// TODO I guess
 			
 			return deferred.promise;
 		}

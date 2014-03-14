@@ -4,7 +4,11 @@ function ($scope, $location, LoginFactory) {
 	
 	$scope.login = function (username, password) {
 		if (LoginFactory.login(username, password)) {
-			$location.path("/index");
+			// Have to do some delay so the user will not be redirected back to login
+			setTimeout(function() {
+				$location.path("/index");
+				$scope.$apply();
+			}, 500);
 		}
 		else {
 			// TODO: Birta vinarleg error message fyrir notanda.
