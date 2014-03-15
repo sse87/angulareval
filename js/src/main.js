@@ -69,7 +69,35 @@ function($http, $q) {
 	};
 }]);
 
+angular.module("EvalApp").factory("EvaluationFactory",
+["$http", "$q",
+function($http, $q) {
 
+	var evalsArr = [];
+
+	return {
+		evals: function(myToken) {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + myToken;
+			$http.get("http://dispatch.ru.is/h19/api/v1/evaluations")
+			.success(function(data, status, headers) {
+				console.log("I got some eval data");
+				console.log(data);
+				evalsArr = data;
+				deferred.resolve(data);
+			}).error(function() {
+				console.log("Eval ERROR");
+				deferred.reject();
+			});
+
+			return deferred.promise;
+		},
+		getEvals: function() { return evalsArr; }
+	};
+}]);
+
+
+/*
 
 angular.module("EvalApp").factory("ApiFactory",
 ["$q",
@@ -139,4 +167,4 @@ function generateEvaluations() {
 	return result;
 }
 
-
+*/
