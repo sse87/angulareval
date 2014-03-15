@@ -1,15 +1,16 @@
 angular.module("EvalApp").controller("HomeCtrl",
-["$scope", "LoginFactory", "EvaluationFactory",
-function ($scope, LoginFactory, EvaluationFactory) {
+["$scope", "LoginFactory", "AdminFactory",
+function ($scope, LoginFactory, AdminFactory) {
 
 	if (LoginFactory.getRole() === "admin"){
 		// list all available evaluations templates
 		// Access all available evaluations templates
 		// Access evaluation creation tempates
-
-		$scope.evals = EvaluationFactory.evals(LoginFactory.getToken());
-		console.log("Eval obj: ");
-		console.log(EvaluationFactory.evals(LoginFactory.getToken()));
+		
+		// Assign evaluation list
+		$scope.evals = AdminFactory.getEvals();
+		// Fetch evaluation list
+		AdminFactory.pullEvals();
 	}
 	else if (LoginFactory.getRole() === "student") {
 		// list all available evaluations

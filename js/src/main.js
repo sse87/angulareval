@@ -29,9 +29,12 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 }]);
 
 
+angular.module("EvalApp").constant("API_URL", "http://dispatch.ru.is/h19");
+
+
 angular.module("EvalApp").factory("LoginFactory",
-["$http", "$q",
-function($http, $q) {
+["$http", "$q", "API_URL",
+function($http, $q, API_URL) {
 	var username = "";
 	var token = "";
 	var email = "";
@@ -42,9 +45,8 @@ function($http, $q) {
 	return {
 		login: function(name, password) {
 			var deferred = $q.defer();
-			$http.post("http://dispatch.ru.is/h19/api/v1/login", { user: name, pass: password })
+			$http.post(API_URL + "/api/v1/login", { user: name, pass: password })
 			.success(function(data, status, headers) {
-				console.log(data);
 				username = name;
 				token = data.Token;
 				email = data.User.Email;
@@ -56,7 +58,6 @@ function($http, $q) {
 			}).error(function() {
 				deferred.reject();
 			});
-
 			return deferred.promise;
 		},
 		getUsername: function() { return username; },
@@ -69,27 +70,28 @@ function($http, $q) {
 	};
 }]);
 
-angular.module("EvalApp").factory("EvaluationFactory",
-["$http", "$q",
-function($http, $q) {
+
+angular.module("EvalApp").factory("AdminFactory",
+["$http", "$q", "LoginFactory",
+function($http, $q, LoginFactory) {
 
 	var evalsArr = [];
 
 	return {
-		evals: function(myToken) {
+		pullEvals: function() {
 			var deferred = $q.defer();
-			$http.defaults.headers.common.Authorization = "Basic " + myToken;
-			$http.get("http://dispatch.ru.is/h19/api/v1/evaluations")
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.get(API_URL + "/api/v1/evaluations")
 			.success(function(data, status, headers) {
-				console.log("I got some eval data");
-				console.log(data);
-				evalsArr = data;
+				// Update the data
+				evalsArr.length = 0;
+				evalsArr.push.apply(evalsArr, data);
+				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
 				console.log("Eval ERROR");
 				deferred.reject();
 			});
-
 			return deferred.promise;
 		},
 		getEvals: function() { return evalsArr; }
