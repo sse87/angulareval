@@ -1,18 +1,19 @@
-angular.module("EvalApp").controller("AdminCtrl",
-["$scope", "LoginFactory", "AdminFactory",
-function ($scope, LoginFactory, AdminFactory) {
+angular.module("EvalApp").controller("StudentCtrl",
+["$scope", "LoginFactory", "StudentFactory",
+function ($scope, LoginFactory, StudentFactory) {
 
 	// list all available evaluations templates
 	// Access all available evaluations templates
 	// Access evaluation creation tempates
 	
 	// Assign evaluation list
-	$scope.evals = AdminFactory.getEvals();
+	$scope.evals = StudentFactory.getEvals();
 	// Fetch evaluation list
-	AdminFactory.pullEvals();
+	StudentFactory.pullEvals();
 
-	console.log("Admin data in ctrl: ");
-	console.log(AdminFactory.getEvals());
+	console.log("Student data in ctrl: ");
+	console.log(StudentFactory.getEvals());
+
 	
 	$scope.username = LoginFactory.getUsername();
 	$scope.token = LoginFactory.getToken();
@@ -23,4 +24,3 @@ function ($scope, LoginFactory, AdminFactory) {
 	$scope.ssn = LoginFactory.getSSN();
 	
 }]);
-

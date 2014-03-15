@@ -10,14 +10,27 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 		controller: "AdminCtrl",
 		resolve: {
 			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
-				// Redirect to login if username is missing
-				if (LoginFactory.getUsername() === "") {
+				// Redirect to login if username not admin
+				if (LoginFactory.getRole() !== "admin") {
+					console.log("Redirected to /login because username was empty!");
+					$location.path("/student");
+					return;
+				}
+			}]
+		}
+	}).when("/student", {
+		templateUrl: "/view/studentIndex.html",
+		controller: "StudentCtrl",
+		resolve: {
+			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
+				// Redirect to login if username is not student
+				if (LoginFactory.getRole() !== "student") {
 					console.log("Redirected to /login because username was empty!");
 					$location.path("/login");
 					return;
 				}
 			}]
-		}
+		}	
 	}).when("/about", {
 		templateUrl: "/view/about.html",
 		controller: "AboutCtrl"
@@ -33,8 +46,8 @@ angular.module("EvalApp").constant("API_URL", "http://dispatch.ru.is/h19");
 
 
 angular.module("EvalApp").factory("LoginFactory",
-["$http", "$q", "API_URL",
-function($http, $q, API_URL) {
+["$http", "$q", "$location" , "API_URL",
+function($http, $q, $location, API_URL) {
 	var username = "";
 	var token = "";
 	var email = "";
@@ -54,6 +67,14 @@ function($http, $q, API_URL) {
 				imageUrl = data.User.ImageUrl;
 				role = data.User.Role;
 				ssn = data.User.SSN;
+
+				if (role === "admin") {
+					$location.path("/admin");
+				}
+				else {
+					$location.path("/student");
+				}
+
 				deferred.resolve({ username: name, token: data.token });
 			}).error(function() {
 				deferred.reject();
@@ -75,7 +96,7 @@ angular.module("EvalApp").factory("AdminFactory",
 ["$http", "$q", "API_URL", "LoginFactory",
 function($http, $q, API_URL, LoginFactory) {
 
-	var evalsArr = [];
+	var adminEvalsArr = [];
 
 	return {
 		pullEvals: function() {
@@ -83,9 +104,11 @@ function($http, $q, API_URL, LoginFactory) {
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/evaluations")
 			.success(function(data, status, headers) {
+				console.log("Admin evel data: ");
+				console.log(data);
 				// Update the data
-				evalsArr.length = 0;
-				evalsArr.push.apply(evalsArr, data);
+				adminEvalsArr.length = 0;
+				adminEvalsArr.push.apply(adminEvalsArr, data);
 				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
@@ -94,11 +117,38 @@ function($http, $q, API_URL, LoginFactory) {
 			});
 			return deferred.promise;
 		},
-		getEvals: function() { return evalsArr; }
+		getEvals: function() { return adminEvalsArr; }
 	};
 }]);
 
+angular.module("EvalApp").factory("StudentFactory",
+["$http", "$q", "API_URL", "LoginFactory",
+function($http, $q, API_URL, LoginFactory) {
 
+	var studentEvalsArr = [];
+
+	return {
+		pullEvals: function() {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.get(API_URL + "/api/v1/my/evaluations")
+			.success(function(data, status, headers) {
+				console.log("Student evel data: ");
+				console.log(data); 
+				// Update the data
+				studentEvalsArr.length = 0;
+				studentEvalsArr.push.apply(studentEvalsArr, data);
+				// Resolve
+				deferred.resolve(data);
+			}).error(function() {
+				console.log("Eval ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+		},
+		getEvals: function() { return studentEvalsArr; }
+	};
+}]);
 /*
 
 angular.module("EvalApp").factory("ApiFactory",
