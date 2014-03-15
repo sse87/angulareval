@@ -5,9 +5,9 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 	$routeProvider.when("/login", {
 		templateUrl: "/view/login.html",
 		controller: "LoginCtrl"
-	}).when("/index", {
-		templateUrl: "/view/index.html",
-		controller: "HomeCtrl",
+	}).when("/admin", {
+		templateUrl: "/view/adminIndex.html",
+		controller: "AdminCtrl",
 		resolve: {
 			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
 				// Redirect to login if username is missing

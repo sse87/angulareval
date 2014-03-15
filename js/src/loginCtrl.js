@@ -6,7 +6,7 @@ function ($scope, $location, LoginFactory) {
 		if (LoginFactory.login(username, password)) {
 			// Have to do some delay so the user will not be redirected back to login
 			setTimeout(function() {
-				$location.path("/index");
+				$location.path("/admin");
 				$scope.$apply();
 			}, 500);
 		}
