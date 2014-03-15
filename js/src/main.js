@@ -72,8 +72,8 @@ function($http, $q, API_URL) {
 
 
 angular.module("EvalApp").factory("AdminFactory",
-["$http", "$q", "LoginFactory",
-function($http, $q, LoginFactory) {
+["$http", "$q", "API_URL", "LoginFactory",
+function($http, $q, API_URL, LoginFactory) {
 
 	var evalsArr = [];
 
