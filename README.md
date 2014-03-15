@@ -18,6 +18,10 @@ grunt
 npm install
 bower install
 ```
+- Run this command after the installation is done:
+'''
+grunt
+'''
 
 - Start the python server by opening a command prompt, navigate to the program directory and run:
 ```
