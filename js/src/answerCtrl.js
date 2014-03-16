@@ -5,7 +5,6 @@ function ($scope, $location, $routeParams, StudentFactory) {
 	var evalID = $routeParams.evalID;
 	console.log(evalID);
 
-	var tmpData = {};
 
 	StudentFactory.pullCurrentEval(evalID).then(function(data) {
 		$scope.evaluation = data;
@@ -16,7 +15,5 @@ function ($scope, $location, $routeParams, StudentFactory) {
 	}, function(errorMessage) {
 		console.log("Error fetching evaluation: " + errorMessage);
 	});
-
-
 	
 }]);
