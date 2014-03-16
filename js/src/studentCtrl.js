@@ -5,14 +5,16 @@ function ($scope, LoginFactory, StudentFactory) {
 	// list all available evaluations templates
 	// Access all available evaluations templates
 	// Access evaluation creation tempates
-	
-	// Assign evaluation list
-	$scope.evals = StudentFactory.getEvals();
-	// Fetch evaluation list
-	StudentFactory.pullEvals();
 
-	console.log("Student data in ctrl: ");
-	console.log(StudentFactory.getEvals());
+	StudentFactory.pullEvals().then(function (data) {
+		$scope.evals = data;
+		// log to console for debugging 
+		console.log($scope.evals);
+
+	}, function (errorMessage) {
+		console.log("Error fetching evaluation: " + errorMessage);
+	});
+
 
 	
 	$scope.username = LoginFactory.getUsername();
