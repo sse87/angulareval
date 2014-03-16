@@ -22,6 +22,10 @@ bower install
 ```
 grunt
 ```
+- If starting karma wont work, run this command to install another version
+```
+npm install karma@0.10
+```
 
 - Start the python server by opening a command prompt, navigate to the program directory and run:
 ```
