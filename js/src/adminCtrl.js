@@ -11,8 +11,14 @@ function ($scope, LoginFactory, AdminFactory) {
 	// Fetch evaluation list
 	AdminFactory.pullEvals();
 
-	console.log("Admin data in ctrl: ");
+	$scope.templates = AdminFactory.getTemplates();
+	AdminFactory.pullTemplates();
+
+	console.log("Admin evals in ctrl: ");
 	console.log(AdminFactory.getEvals());
+
+	console.log("Admin templates in ctrl: ");
+	console.log(AdminFactory.getTemplates());
 	
 	$scope.username = LoginFactory.getUsername();
 	$scope.token = LoginFactory.getToken();

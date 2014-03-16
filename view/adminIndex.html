@@ -1,7 +1,15 @@
 <section class="indexSection">
-	<h1>Index</h1>
 	<h2>Hello {{username}}</h2>
 	
+	<h3>List of evaluation templates</h3>
+	<ul>
+	    <li ng-repeat="temp in templates">
+		     <span>{{temp.ID}}</span>
+		     <p>{{temp.TitleIS}}</p>
+	    </li>
+  	</ul>
+
+	<h3>List of evaluations</h3>
 	<ul>
 	    <li ng-repeat="eval in evals">
 		     <span>{{eval.ID}}</span>

@@ -59,10 +59,10 @@ function($http, $q, $location, API_URL) {
 	var role = "";
 	var ssn = "";
 	return {
-		login: function(name, password) {
+		login: function (name, password) {
 			var deferred = $q.defer();
 			$http.post(API_URL + "/api/v1/login", { user: name, pass: password })
-			.success(function(data, status, headers) {
+			.success(function (data, status, headers) {
 				username = name;
 				token = data.Token;
 				email = data.User.Email;
@@ -100,13 +100,14 @@ angular.module("EvalApp").factory("AdminFactory",
 function($http, $q, API_URL, LoginFactory) {
 
 	var adminEvalsArr = [];
+	var adminTemplateArr = [];
 
 	return {
 		pullEvals: function() {
 			var deferred = $q.defer();
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/evaluations")
-			.success(function(data, status, headers) {
+			.success(function (data, status, headers) {
 				console.log("Admin evel data: ");
 				console.log(data);
 				// Update the data
@@ -120,7 +121,26 @@ function($http, $q, API_URL, LoginFactory) {
 			});
 			return deferred.promise;
 		},
-		getEvals: function() { return adminEvalsArr; }
+		pullTemplates: function() {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.get(API_URL + "/api/v1/evaluationtemplates")
+			.success(function (data, status, headers) {
+				console.log("Admin template data: ");
+				console.log(data);
+
+				adminTemplateArr.length = 0;
+				adminTemplateArr.push.apply(adminTemplateArr, data);
+
+				deferred.resolve(data);
+			}).error(function () {
+				console.log("Tepmlate ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+		},
+		getEvals: function () { return adminEvalsArr; },
+		getTemplates: function () { return adminTemplateArr; }
 	};
 }]);
 
@@ -135,7 +155,7 @@ function($http, $q, API_URL, LoginFactory) {
 			var deferred = $q.defer();
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/my/evaluations")
-			.success(function(data, status, headers) {
+			.success(function (data, status, headers) {
 				console.log("Student evel data: ");
 				console.log(data); 
 				// Update the data
