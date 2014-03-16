@@ -12,8 +12,8 @@
 	<ul>
 		<li ng-repeat="eval in evals">
 			 <a ng-href="#/admin/evaluation/{{eval.ID}}">{{eval.TemplateTitleIS}}</a>
-			<span>{{eval.StartDate}}</span>
-			<span>{{eval.EndDate}}</span>
+			<span>{{eval.StartDate | date: 'dd. MMM. HH:mm'}}</span>
+			<span>{{eval.EndDate | date: '- dd. MMM. HH:mm'}}</span>
 		</li>
 	</ul>
 
