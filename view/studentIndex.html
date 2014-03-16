@@ -3,8 +3,7 @@
 	
 	<ul>
 	    <li ng-repeat="eval in evals">
-		     <span>{{eval.ID}}</span>
-		     <p>{{eval.CourseNameIS}}</p>
+		     <a ng-href="#/student/answer/{{eval.ID}}">{{eval.CourseNameIS}}</a>
 	    </li>
   	</ul>
 

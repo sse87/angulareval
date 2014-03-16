@@ -3,15 +3,7 @@ angular.module("EvalApp").controller("LoginCtrl",
 function ($scope, $location, LoginFactory) {
 	
 	$scope.login = function (username, password) {
-		if (LoginFactory.login(username, password)) {
-			// Have to do some delay so the user will not be redirected back to login
-			setTimeout(function() {
-				$location.path("/admin");
-				$scope.$apply();
-			}, 500);
-		}
-		else {
-			// TODO: Birta vinarleg error message fyrir notanda.
+		if (!LoginFactory.login(username, password)) {
 			console.log("Login in false!");
 		}
 	};
