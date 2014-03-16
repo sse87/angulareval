@@ -3,19 +3,19 @@
 	
 	<h3>List of evaluation templates</h3>
 	<ul>
-	    <li ng-repeat="temp in templates">
-		     <span>{{temp.ID}}</span>
-		     <p>{{temp.TitleIS}}</p>
-	    </li>
-  	</ul>
+		<li ng-repeat="temp in templates">
+			<a ng-href="#/admin/template/{{temp.ID}}">{{temp.TitleIS}}</a>
+		</li>
+	</ul>
 
 	<h3>List of evaluations</h3>
 	<ul>
-	    <li ng-repeat="eval in evals">
-		     <span>{{eval.ID}}</span>
-		     <p>{{eval.TemplateTitleIS}}</p>
-	    </li>
-  	</ul>
+		<li ng-repeat="eval in evals">
+			 <a ng-href="#/admin/evaluation/{{eval.ID}}">{{eval.TemplateTitleIS}}</a>
+			<span>{{eval.StartDate | date: 'dd. MMM. HH:mm'}}</span>
+			<span>{{eval.EndDate | date: '- dd. MMM. HH:mm'}}</span>
+		</li>
+	</ul>
 
 	<p>
 		Username: <strong>{{username}}</strong><br />

@@ -14,6 +14,12 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 				LoginFactory.isLoggedIn("student");
 			}] 
 		}
+	}).when("/admin/template/:templateID", {
+		templateUrl: "/view/templateDetails.html",
+		controller: "TemplateDetailsCtrl"
+	}).when("/admin/evaluation/:evalID", {
+		templateUrl: "/view/evalDetails.html",
+		controller: "EvalDetailsCtrl"
 	}).when("/admin/template/new", {
 		templateUrl: "/view/createTemplate.html",
 		controller: "TemplateCtrl"
