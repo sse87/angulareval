@@ -152,9 +152,10 @@ angular.module("EvalApp").factory("StudentFactory",
 function($http, $q, API_URL, LoginFactory) {
 
 	var studentEvalsArr = [];
+	var currentEval = {};
 
 	return {
-		pullEvals: function() {
+		pullEvals: function () {
 			var deferred = $q.defer();
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/my/evaluations")
@@ -172,7 +173,25 @@ function($http, $q, API_URL, LoginFactory) {
 			});
 			return deferred.promise;
 		},
-		getEvals: function() { return studentEvalsArr; }
+		pullCurrentEval: function (id) {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.get(API_URL + "/api/v1/evaluations/" + id)
+			.success(function (data, status, headers) {
+				//console.log("Factory current ID");
+				//console.log(data);
+				// Update the data
+				currentEval = data;
+				// Resolve
+				deferred.resolve(data);
+			}).error(function() {
+				console.log("Current eval ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+		},
+		getCurrentEval: function () {return currentEval; },
+		getEvals: function () { return studentEvalsArr; }
 	};
 }]);
 /*
