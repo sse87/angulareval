@@ -6,19 +6,28 @@ function ($scope, LoginFactory, AdminFactory) {
 	// Access all available evaluations templates
 	// Access evaluation creation tempates
 	
-	// Assign evaluation list
-	$scope.evals = AdminFactory.getEvals();
-	// Fetch evaluation list
-	AdminFactory.pullEvals();
+	// Get evaluations from the API
+	AdminFactory.pullEvals().then(function (data) {
+		$scope.evals = data;
+		// log to console for debugging 
+		console.log("Admin evals");
+		console.log($scope.evals);
 
-	$scope.templates = AdminFactory.getTemplates();
-	AdminFactory.pullTemplates();
+	}, function (errorMessage) {
+		console.log("Error fetching evaluation: " + errorMessage);
+	});
 
-	console.log("Admin evals in ctrl: ");
-	console.log(AdminFactory.getEvals());
+	// Get templates from the API
+	AdminFactory.pullTemplates().then(function (data) {
+		$scope.templates = data;
+		// log to console for debugging 
+		console.log("Admin templates");
+		console.log($scope.templates);
 
-	console.log("Admin templates in ctrl: ");
-	console.log(AdminFactory.getTemplates());
+	}, function (errorMessage) {
+		console.log("Error fetching templates: " + errorMessage);
+	});
+
 	
 	$scope.username = LoginFactory.getUsername();
 	$scope.token = LoginFactory.getToken();
