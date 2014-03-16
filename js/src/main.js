@@ -5,32 +5,31 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 	$routeProvider.when("/login", {
 		templateUrl: "/view/login.html",
 		controller: "LoginCtrl"
+	}).when("/student/answer/:evalID", {
+		templateUrl: "/view/answer.html",
+		controller: "AnswerCtrl",
+		// User will be redirected to /login if he is not logged in
+		resolve: {
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("student");
+			}] 
+		}
 	}).when("/admin", {
 		templateUrl: "/view/adminIndex.html",
 		controller: "AdminCtrl",
 		resolve: {
-			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
-				// Redirect to login if username not admin
-				if (LoginFactory.getRole() !== "admin") {
-					console.log("Redirected to /login because username was empty!");
-					$location.path("/student");
-					return;
-				}
-			}]
-		}
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("admin");
+			}] 
+		} 
 	}).when("/student", {
 		templateUrl: "/view/studentIndex.html",
 		controller: "StudentCtrl",
 		resolve: {
-			this: ["$location", "LoginFactory", function ($location, LoginFactory) {
-				// Redirect to login if username is not student
-				if (LoginFactory.getRole() !== "student") {
-					console.log("Redirected to /login because username was empty!");
-					$location.path("/login");
-					return;
-				}
-			}]
-		}	
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("student");
+			}] 
+		}
 	}).when("/about", {
 		templateUrl: "/view/about.html",
 		controller: "AboutCtrl"
@@ -38,7 +37,6 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 		templateUrl: "/view/fake.html",
 		controller: "FakeCtrl"
 	}).otherwise({ redirectTo: "/login" });
-	
 }]);
 
 
@@ -87,7 +85,15 @@ function($http, $q, $location, API_URL) {
 		getFullName: function() { return fullName; },
 		getImageUrl: function() { return imageUrl; },
 		getRole: function() { return role; },
-		getSSN: function() { return ssn; }
+		getSSN: function() { return ssn; },
+
+		isLoggedIn: function (currentRole) {
+			// Redirect to login if username is not student
+			if (role !== currentRole) {
+				console.log("Redirected to /login because username was empty!");
+				$location.path("/login");
+			}
+		}
 	};
 }]);
 
