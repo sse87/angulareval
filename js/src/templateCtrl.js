@@ -3,7 +3,9 @@ angular.module("EvalApp").controller("TemplateCtrl",
 function ($scope, $location, AdminFactory) {
 
 	$scope.addTemplate = function () {
-		// TODO: send data to AdminFactory
+		AdminFactory.pushTemplates($scope.template).then(function (data) {
+			$location.path("/admin");
+		});
 	};
 
 	$scope.template = {};
