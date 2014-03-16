@@ -29,7 +29,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-    'js/src/*.js': ['coverage']
+        'js/src/*.js': ['coverage']
     },
 
 

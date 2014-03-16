@@ -1,15 +1,17 @@
-<h3>Answer</h3>
+<section class="container answerSection">
+	<h3>Answer</h3>
 
-<h4>{{evaluation.TemplateTitleIS}}</h4>
+	<h4>{{evaluation.TemplateTitleIS}}</h4>
 
-<ul>
-	<li ng-repeat="course in evaluation.Courses">
-		<span>Course {{course.ID}}</span>
-		<span>{{course.CourseNameIS}}</span>
+	<ul>
+		<li ng-repeat="course in evaluation.Courses">
+			<span>Course {{course.ID}}</span>
+			<span>{{course.CourseNameIS}}</span>
 
-		<li ng-repeat="question in evaluation.Courses.Questions">
-			<span>Question {{question.ID}}</span>
-			<span>{{question.CourseNameIS}}</span>
+			<li ng-repeat="question in evaluation.Courses.Questions">
+				<span>Question {{question.ID}}</span>
+				<span>{{question.CourseNameIS}}</span>
+			</li>
 		</li>
-	</li>
-</ul>
+	</ul>
+</section

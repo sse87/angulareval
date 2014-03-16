@@ -28,6 +28,13 @@ function ($scope, LoginFactory, AdminFactory) {
 		console.log("Error fetching templates: " + errorMessage);
 	});
 
+	$scope.showEvalForm = false;
+	$scope.addEvaluation = function () {
+		console.log("addEvaluation()");
+		// TODO
+		
+		$scope.showEvalForm = false;
+	};
 	
 	$scope.username = LoginFactory.getUsername();
 	$scope.token = LoginFactory.getToken();
