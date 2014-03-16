@@ -5,39 +5,53 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 	$routeProvider.when("/login", {
 		templateUrl: "/view/login.html",
 		controller: "LoginCtrl"
-	}).when("/student/answer/:evalID", {
-		templateUrl: "/view/answer.html",
-		controller: "AnswerCtrl",
-		// User will be redirected to /login if he is not logged in
+	}).when("/admin/template/new", {
+		templateUrl: "/view/createTemplate.html",
+		controller: "TemplateCtrl",
 		resolve: {
 			this: ["LoginFactory", function (LoginFactory) {
-				LoginFactory.isLoggedIn("student");
-			}] 
+				LoginFactory.isLoggedIn("admin");
+			}]
 		}
 	}).when("/admin/template/:templateID", {
 		templateUrl: "/view/templateDetails.html",
-		controller: "TemplateDetailsCtrl"
+		controller: "TemplateDetailsCtrl",
+		resolve: {
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("admin");
+			}]
+		}
 	}).when("/admin/evaluation/:evalID", {
 		templateUrl: "/view/evalDetails.html",
-		controller: "EvalDetailsCtrl"
-	}).when("/admin/template/new", {
-		templateUrl: "/view/createTemplate.html",
-		controller: "TemplateCtrl"
+		controller: "EvalDetailsCtrl",
+		resolve: {
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("admin");
+			}]
+		}
 	}).when("/admin", {
 		templateUrl: "/view/adminIndex.html",
 		controller: "AdminCtrl",
 		resolve: {
 			this: ["LoginFactory", function (LoginFactory) {
 				LoginFactory.isLoggedIn("admin");
-			}] 
-		} 
+			}]
+		}
+	}).when("/student/answer/:evalID", {
+		templateUrl: "/view/answer.html",
+		controller: "AnswerCtrl",
+		resolve: {
+			this: ["LoginFactory", function (LoginFactory) {
+				LoginFactory.isLoggedIn("student");
+			}]
+		}
 	}).when("/student", {
 		templateUrl: "/view/studentIndex.html",
 		controller: "StudentCtrl",
 		resolve: {
 			this: ["LoginFactory", function (LoginFactory) {
 				LoginFactory.isLoggedIn("student");
-			}] 
+			}]
 		}
 	}).when("/about", {
 		templateUrl: "/view/about.html",
@@ -99,7 +113,7 @@ function($http, $q, $location, API_URL) {
 		isLoggedIn: function (currentRole) {
 			// Redirect to login if username is not student
 			if (role !== currentRole) {
-				console.log("Redirected to /login because username was empty!");
+				console.log("Redirected to /login because your role was '" + role + "' but not '" + currentRole + "'!");
 				$location.path("/login");
 			}
 		}
@@ -120,15 +134,13 @@ function($http, $q, API_URL, LoginFactory) {
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/evaluations")
 			.success(function (data, status, headers) {
-				console.log("Admin evel data: ");
-				console.log(data);
 				// Update the data
 				adminEvalsArr.length = 0;
 				adminEvalsArr.push.apply(adminEvalsArr, data);
 				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
-				console.log("Eval ERROR");
+				console.log("AdminFactory.pullEvals() ERROR");
 				deferred.reject();
 			});
 			return deferred.promise;
@@ -138,18 +150,31 @@ function($http, $q, API_URL, LoginFactory) {
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/evaluationtemplates")
 			.success(function (data, status, headers) {
-				console.log("Admin template data: ");
-				console.log(data);
-
+				
+				// Update list
 				adminTemplateArr.length = 0;
 				adminTemplateArr.push.apply(adminTemplateArr, data);
 
 				deferred.resolve(data);
 			}).error(function () {
-				console.log("Tepmlate ERROR");
+				console.log("AdminFactory.pullTemplates() ERROR");
 				deferred.reject();
 			});
 			return deferred.promise;
+		},
+		pushTemplates: function (template) {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.post(API_URL + "/api/v1/evaluationtemplates", template)
+			.success(function (data, status, headers) {
+				// To be sure it was success then check status for code 204 and 4xx if it was unsuccessful
+				deferred.resolve(data);
+			}).error(function () {
+				console.log("AdminFactory.pushTemplates() ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+			
 		},
 		getEvals: function () { return adminEvalsArr; },
 		getTemplates: function () { return adminTemplateArr; }
@@ -169,15 +194,13 @@ function($http, $q, API_URL, LoginFactory) {
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/my/evaluations")
 			.success(function (data, status, headers) {
-				console.log("Student evel data: ");
-				console.log(data); 
 				// Update the data
 				studentEvalsArr.length = 0;
 				studentEvalsArr.push.apply(studentEvalsArr, data);
 				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
-				console.log("Eval ERROR");
+				console.log("StudentFactory.pullEvals() ERROR");
 				deferred.reject();
 			});
 			return deferred.promise;
@@ -187,14 +210,12 @@ function($http, $q, API_URL, LoginFactory) {
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
 			$http.get(API_URL + "/api/v1/evaluations/" + id)
 			.success(function (data, status, headers) {
-				//console.log("Factory current ID");
-				//console.log(data);
 				// Update the data
 				currentEval = data;
 				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
-				console.log("Current eval ERROR");
+				console.log("StudentFactory.pullCurrentEval() ERROR");
 				deferred.reject();
 			});
 			return deferred.promise;
