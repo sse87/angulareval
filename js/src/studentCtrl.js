@@ -15,7 +15,6 @@ function ($scope, LoginFactory, StudentFactory) {
 		console.log("Error fetching evaluation: " + errorMessage);
 	});
 
-
 	
 	$scope.username = LoginFactory.getUsername();
 	$scope.token = LoginFactory.getToken();

@@ -19,7 +19,9 @@ module.exports = function(config) {
         "bower_components/angular-route/angular-route.js",
         "js/src/main.js",
         "js/src/fake.js",
-        "js/test/fake.spec.js"
+        "js/src/studentCtrl.js",
+        "js/test/fake.spec.js",
+        "js/test/studentCtrl.spec.js"
     ],
 
 
