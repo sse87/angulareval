@@ -1,55 +1,87 @@
 <section class="createTemplateSection">
-	<h1>Create template</h1>
-	<form>
-		<input type="text" name="TitleIs" ng-model="template.titleIs" class="form-control" placeholder="Icelandic title" />
-		<input type="text" name="TitleEn" ng-model="template.titleEn" class="form-control" placeholder="English title" />
-		<textarea type="text" name="IntroTextIs" ng-model="template.introTextIs" class="form-control" placeholder="Icelandic intro text"></textarea>
-		<textarea type="text" name="IntroTextEn" ng-model="template.introTextEn" class="form-control" placeholder="English intro text"></textarea>
+	<h1>Búa til sniðmát</h1>
+	<form ng-submit="addTemplate(template)">
+		<input type="text" name="TitleIs" ng-model="template.titleIs" class="form-control" placeholder="Titill á íslensku" />
+		<input type="text" name="TitleEn" ng-model="template.titleEn" class="form-control" placeholder="Titill á ensku" />
+		<textarea type="text" name="IntroTextIs" ng-model="template.introTextIs" class="form-control" placeholder="Inngang texti á íslensku"></textarea>
+		<textarea type="text" name="IntroTextEn" ng-model="template.introTextEn" class="form-control" placeholder="Inngang texti á ensku"></textarea>
 		
 		<h2>Spurningar úr námskeiði</h2>
+		
 		<div ng-repeat="question in template.courseQuestions">
 			<input type="text" ng-model="question.textIs" class="form-control" placeholder="Spurning á íslensku" />
 			<input type="text" ng-model="question.textEn" class="form-control" placeholder="Spurning á ensku" />
 			<input type="url" url-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
-			<label for="">Text</label><input type="radio" name="type" value="text" />
-			<label for="">Single</label><input type="radio" name="type" value="single" />
-			<label for="">Multiple</label><input type="radio" name="type" value="multiple" />
+			
+			<label>Týpu af spurningum: </label>
+			
+			<input type="radio" ng-model="question.type" name="cType{{question.id}}" id="cText{{question.id}}" value="text" />
+			<label for="cText{{question.id}}">Text</label>
+			
+			<input type="radio" ng-model="question.type" name="cType{{question.id}}" id="cSingle{{question.id}}" value="single" />
+			<label for="cSingle{{question.id}}">Single</label>
+			
+			<input type="radio" ng-model="question.type" name="cType{{question.id}}" id="cMultiple{{question.id}}" value="multiple" />
+			<label for="cMultiple{{question.id}}">Multiple</label>
+			
 			<div ng-show="question.type == 'multiple' || question.type == 'single'">
 				<p>Svarmöguleikar:</p>
 				<ul>
-					<li ng-repeat="answer in question.answers track by $index">
-						<input type="text" ng-model="answer.textIs" class="form-control" />
-						<input type="text" ng-model="answer.textIs" class="form-control" />
-						<input type="text" ng-model="answer.imageUrl" class="form-control" />
-						<input type="number" min="1" max="5" ng-model="answer.weight" class="form-control" />
+					<li class="question-option" ng-repeat="answer in question.answers track by $index">
+						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Spurning á íslensku" />
+						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Spurning á ensku" />
+						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
+						<label>Vægi spurningu: </label>
+						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="1" /> <label>1</label>
+						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="2" /> <label>2</label>
+						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="3" /> <label>3</label>
+						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="4" /> <label>4</label>
+						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="5" /> <label>5</label>
 					</li>
-				</ul>
+				</ol>
 				<button class="btn btn-mini" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
 			</div>
 		</div>
-		<button class="btn btn-mini" ng-click="addCourseQuestion()">Bæta við spurningu</button>
+		<button class="btn btn-mini btn-add-question" ng-click="addCourseQuestion()">Bæta við spurningu</button>
 		
 		<h2>Spurningar um kennara</h2>
+		
 		<div ng-repeat="question in template.teacherQuestions">
 			<input type="text" ng-model="question.textIs" class="form-control" placeholder="Spurning á íslensku" />
 			<input type="text" ng-model="question.textEn" class="form-control" placeholder="Spurning á ensku" />
 			<input type="url" url-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
-			<label for="">Text</label><input type="radio" name="type" value="text" />
-			<label for="">Single</label><input type="radio" name="type" value="single" />
-			<label for="">Multiple</label><input type="radio" name="type" value="multiple" />
+			
+			<label>Týpu af spurningum: </label>
+			
+			<input type="radio" ng-model="question.type" name="tType{{question.id}}" id="tText{{question.id}}" value="text" />
+			<label for="tText{{question.id}}">Text</label>
+			
+			<input type="radio" ng-model="question.type" name="tType{{question.id}}" id="tSingle{{question.id}}" value="single" />
+			<label for="tSingle{{question.id}}">Single</label>
+			
+			<input type="radio" ng-model="question.type" name="tType{{question.id}}" id="tMultiple{{question.id}}" value="multiple" />
+			<label for="tMultiple{{question.id}}">Multiple</label>
+			
 			<div ng-show="question.type == 'multiple' || question.type == 'single'">
 				<p>Svarmöguleikar:</p>
 				<ul>
-					<li ng-repeat="answer in question.answers track by $index">
-						<input type="text" ng-model="answer.textIs" class="form-control" />
-						<input type="text" ng-model="answer.textIs" class="form-control" />
-						<input type="text" ng-model="answer.imageUrl" class="form-control" />
-						<input type="number" min="1" max="5" ng-model="answer.weight" class="form-control" />
+					<li class="question-option" ng-repeat="answer in question.answers track by $index">
+						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Spurning á íslensku" />
+						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Spurning á ensku" />
+						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Hlekkur að mynd" />
+						<label>Vægi spurningu: </label>
+						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="1" /> <label>1</label>
+						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="2" /> <label>2</label>
+						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="3" /> <label>3</label>
+						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="4" /> <label>4</label>
+						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="5" /> <label>5</label>
 					</li>
 				</ul>
 				<button class="btn btn-mini" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
 			</div>
 		</div>
-		<button class="btn btn-mini" ng-click="addTeacherQuestion()">Bæta við spurningu</button>
+		<button class="btn btn-mini btn-add-question" ng-click="addTeacherQuestion()">Bæta við spurningu</button>
+		
+		<input type="submit" class="btn btn-lg btn-success" text="Vista">
 	</form>
 </section>

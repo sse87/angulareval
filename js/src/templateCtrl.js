@@ -2,6 +2,10 @@ angular.module("EvalApp").controller("TemplateCtrl",
 ["$scope", "$location", "AdminFactory",
 function ($scope, $location, AdminFactory) {
 
+	$scope.addTemplate = function () {
+		// TODO: send data to AdminFactory
+	};
+
 	$scope.template = {};
 	$scope.template.titleIs = "";
 	$scope.template.titleEn = "";

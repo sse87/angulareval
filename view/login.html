@@ -1,7 +1,7 @@
 <section class="container loginSection">
 	<form class="form-signin" role="form" ng-submit="login(username, password)">
 		<h2 class="form-signin-heading">Please sign in</h2>
-		<input type="text" ng-model="username" class="form-control" placeholder="Username" list="usernames" required autofocus>
+		<input type="text" ng-model="username" class="form-control" placeholder="Username" ng-click="csp()" ng-keyup="csp()" ng-blur="csp()" list="usernames" required autofocus>
 		<datalist id="usernames">
 			<option value="admin">
 			<option value="bjarni12">

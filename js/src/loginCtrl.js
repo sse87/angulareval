@@ -8,4 +8,13 @@ function ($scope, $location, LoginFactory) {
 		}
 	};
 	
+	// Check Saved Password
+	$scope.csp = function () {
+		if ($scope.username === "admin") { $scope.password = "123456"; }
+		else if ($scope.username === "bjarni12") { $scope.password = "123456"; }
+		else if ($scope.username === "sigurdurse09") { $scope.password = "123456"; }
+		else if ($scope.username === "sveinnt12") { $scope.password = "123456"; }
+		else { $scope.password = ""; }
+	};
+	
 }]);
