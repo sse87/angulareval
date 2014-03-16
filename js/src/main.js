@@ -5,6 +5,9 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 	$routeProvider.when("/login", {
 		templateUrl: "/view/login.html",
 		controller: "LoginCtrl"
+	}).when("/admin/template/new", {
+		templateUrl: "/view/createTemplate.html",
+		controller: "TemplateCtrl"
 	}).when("/admin", {
 		templateUrl: "/view/adminIndex.html",
 		controller: "AdminCtrl",
