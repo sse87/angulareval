@@ -17,4 +17,11 @@ function ($scope, $location, LoginFactory) {
 		else { $scope.password = ""; }
 	};
 	
+	// Quick admin login
+	$scope.iddqd = function () {
+		if (!LoginFactory.login("admin","123456")) {
+			console.log("iddqd did not work... maybe this is not Doom.");
+		}
+	};
+	
 }]);
