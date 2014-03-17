@@ -21,7 +21,8 @@ module.exports = function(config) {
         "js/src/fake.js",
         "js/src/studentCtrl.js",
         "js/test/fake.spec.js",
-        "js/test/studentCtrl.spec.js"
+        "js/test/studentCtrl.spec.js",
+        "js/test/studentFactory.spec.js"
     ],
 
 

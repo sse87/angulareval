@@ -1,13 +1,11 @@
-describe("Testing of the StudentController", function () {
+describe("Testing of the StudentController response", function () {
  
-	var $scope;
-	var $controller;
+	var $scope, $controller;
 
 	beforeEach(function () {
-		
-		angular.mock.module("EvalApp");
+		module("EvalApp");
 		inject(function($rootScope, $controller) {
-		
+
 			// create a new scope
 			$scope = $rootScope.$new();
 			$controller("StudentCtrl", {$scope: $scope});
@@ -23,14 +21,3 @@ describe("Testing of the StudentController", function () {
 	});
 
 });
-
-/*
-q = $q;
-moc = {
-    login: function() {
-        deferred = q.defer();
-        return deferred.promise;
-    }
-}
-controller = $controller("LoginController", { $scope: $scope, api: moc });
-*/
