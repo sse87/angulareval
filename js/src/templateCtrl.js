@@ -8,13 +8,14 @@ function ($scope, $location, AdminFactory) {
 		});
 	};
 
-	$scope.template = {};
-	$scope.template.titleIs = "";
-	$scope.template.titleEn = "";
-	$scope.template.introTextIs = "";
-	$scope.template.introTextEn = "";
-	$scope.template.courseQuestions = [];
-	$scope.template.teacherQuestions = [];
+	$scope.template = {
+		titleIs: "",
+		titleEn: "",
+		introTextIs: "",
+		introTextEn: "",
+		courseQuestions: [],
+		teacherQuestions: []
+	};
 
 	$scope.addAnswer = function(question) {
 		question.answers.push({
