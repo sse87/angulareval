@@ -16,7 +16,7 @@
 				<div ng-show="cQuestion.Type == 'multiple'">
 					<div ng-repeat="answer in cQuestion.Answers">
 						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-						<input type="checkbox" id="chboxQ{{cQuestion.ID}}A{{answer.ID}}" name="chboxQ{{cQuestion.ID}}" value="{{answer.TextIS}}">
+						<input type="checkbox" id="chboxQ{{cQuestion.ID}}A{{answer.ID}}" ng-model="answer.givenAnswer" value="{{answer.TextIS}}">
 						<label for="chboxQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
 						<div class="clear"></div>
 					</div>
@@ -25,7 +25,7 @@
 				<div ng-show="cQuestion.Type == 'single'">
 					<div ng-repeat="answer in cQuestion.Answers">
 						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-						<input type="radio" name="radioQ{{cQuestion.ID}}" id="radioQ{{cQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+						<input type="radio" name="radioQ{{cQuestion.ID}}" id="radioQ{{cQuestion.ID}}A{{answer.ID}}" ng-model="cQuestion.givenAnswer" value="{{answer.TextIS}}">
 						<label for="radioQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
 						<div class="clear"></div>
 					</div>
@@ -33,7 +33,7 @@
 				
 				<div ng-show="cQuestion.Type == 'text'">
 					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<textarea class="form-control" rows="3" cols="30"></textarea>
+					<textarea class="form-control" rows="3" cols="30" ng-model="cQuestion.givenAnswer"></textarea>
 					<div class="clear"></div>
 				</div>
 				
@@ -52,7 +52,7 @@
 					
 					<div ng-repeat="answer in tQuestion.Answers">
 						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-						<input type="checkbox" id="chbox{{tQuestion.ID}}A{{answer.ID}}" name="chbox{{tQuestion.ID}}" value="{{answer.TextIS}}">
+						<input type="checkbox" id="chbox{{tQuestion.ID}}A{{answer.ID}}" ng-model="answer.givenAnswer" value="{{answer.TextIS}}">
 						<label for="chbox{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
 						<div class="clear"></div>
 					</div>
@@ -61,7 +61,7 @@
 				<div ng-show="tQuestion.Type == 'single'">
 					<div ng-repeat="answer in tQuestion.Answers">
 						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-						<input type="radio" name="radioQ{{tQuestion.ID}}" id="radioQ{{tQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+						<input type="radio" name="radioQ{{tQuestion.ID}}" id="radioQ{{tQuestion.ID}}A{{answer.ID}}" ng-model="cQuestion.givenAnswer" value="{{answer.TextIS}}">
 						<label for="radioQ{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
 						<div class="clear"></div>
 					</div>
@@ -69,11 +69,11 @@
 
 				<div ng-show="tQuestion.Type == 'text'">
 					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<textarea class="form-control" rows="3" cols="30"></textarea>
+					<textarea class="form-control" rows="3" cols="30" ng-model="cQuestion.givenAnswer"></textarea>
 					<div class="clear"></div>
 				</div>
 			</li>
 		</ul>
-		<input type="submit" class="btn btn-lg btn-success" ng-click="submitEval()" text="Vista">
+		<input type="submit" class="btn btn-lg btn-success" ng-click="submitEval()" text="Vista" />
 	</form>
 </section

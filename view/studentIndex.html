@@ -1,19 +1,13 @@
 <section class="container indexSection">
-	<h2>Hello student {{username}}</h2>
+	
+	<h2>{{fullName}}</h2>
+	
+	<h3>Kennslukannanir:</h3>
 	
 	<ul>
 	    <li ng-repeat="eval in evals">
 		     <a ng-href="#/student/answer/{{eval.CourseID}}/{{eval.Semester}}/{{eval.ID}}">{{eval.CourseNameIS}}</a>
 	    </li>
   	</ul>
-
-	<p>
-		Username: <strong>{{username}}</strong><br />
-		Token: <strong>{{token}}</strong><br />
-		Email: <strong>{{email}}</strong><br />
-		FullName: <strong>{{fullName}}</strong><br />
-		ImageUrl: <strong>{{imageUrl}}</strong><br />
-		Role: <strong>{{role}}</strong><br />
-		SSN: <strong>{{ssn}}</strong><br />
-	</p>
+  	
 </section>
