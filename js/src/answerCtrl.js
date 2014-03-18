@@ -17,8 +17,8 @@ function ($scope, $location, $routeParams, StudentFactory) {
 
 	var evalData = "Eval data needs to go in here";
 
-	$scope.submitEval = function (course, semester, ID) {
-		StudentFactory.pushval().then(function (data) {
+	$scope.submitEval = function () {
+		StudentFactory.pushval(course, semester, ID, evalData).then(function (data) {
 			$location.path("/student");
 		});
 	};
