@@ -8,15 +8,24 @@
 		</li>
 	</ul>
 
-	<h3>List of evaluations <small><a href="" ng-click="showEvalForm=!showEvalForm">Add new</a></small></h3>
-	<ul>
-		<li ng-repeat="eval in evals">
-			 <a ng-href="#/admin/evaluation/{{eval.ID}}">{{eval.TemplateTitleIS}}</a>
-			<span>{{eval.StartDate | date: 'dd. MMM. HH:mm'}}</span>
-			<span>{{eval.EndDate | date: '- dd. MMM. HH:mm'}}</span>
-			<span>{{eval.Status}}</span>
-		</li>
-	</ul>
+	<h3>
+		List of evaluations
+		<small ng-hide="showEvalForm"><a href="" ng-click="showEvalForm=!showEvalForm">Add new</a></small>
+		<small ng-show="showEvalForm"><a href="" ng-click="showEvalForm=!showEvalForm">Cancel</a></small>
+	</h3>
+	<table>
+		<thead>
+			<tr><td>Template</td><td>Start date</td><td>End date</td><td>Status</td></tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="eval in evals">
+				<td><a ng-href="#/admin/evaluation/{{eval.ID}}">{{eval.TemplateTitleIS}}</a></td>
+				<td ng-bind="eval.StartDate | date: 'dd. MMM. HH:mm'"></td>
+				<td ng-bind="eval.EndDate | date: 'dd. MMM. HH:mm'"></td>
+				<td ng-bind="eval.Status">Status</td>
+			</tr>
+		</tbody>
+	</table>
 	<form ng-show="showEvalForm" ng-submit="addEvaluation()" class="formNewEval col-md-4">
 		<h4>New evaluation</h4>
 		<select ng-model="templateID" class="form-control" required>

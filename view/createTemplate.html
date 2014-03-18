@@ -11,7 +11,7 @@
 		<div ng-repeat="question in template.courseQuestions">
 			<input type="text" ng-model="question.textIs" class="form-control" placeholder="Spurning á íslensku" />
 			<input type="text" ng-model="question.textEn" class="form-control" placeholder="Spurning á ensku" />
-			<input type="url" url-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
+			<input type="url" ng-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd" navi="Optional" />
 			
 			<label>Týpu af spurningum: </label>
 			
@@ -26,11 +26,11 @@
 			
 			<div ng-show="question.type == 'multiple' || question.type == 'single'">
 				<p>Svarmöguleikar:</p>
-				<ul class="list-unstyled">
+				<ul class="question-list list-unstyled">
 					<li class="question-option" ng-repeat="answer in question.answers track by $index">
 						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Svarmöguleiki á íslensku" />
 						<input type="text" ng-model="answer.textEn" class="form-control" placeholder="Svarmöguleiki á ensku" />
-						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
+						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Url á ljósmynd" navi="Optional" />
 						<label>Vægi spurningu: </label>
 						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="1" /> <label>1</label>
 						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="2" /> <label>2</label>
@@ -39,7 +39,7 @@
 						<input type="radio" ng-model="answer.weight" name="cWeightQ{{question.id}}A{{answer.id}}" value="5" /> <label>5</label>
 					</li>
 				</ol>
-				<button class="btn btn-mini" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
+				<button class="btn btn-mini btn-add-question" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
 			</div>
 		</div>
 		<button class="btn btn-mini btn-add-question" ng-click="addCourseQuestion()">Bæta við spurningu</button>
@@ -49,7 +49,7 @@
 		<div ng-repeat="question in template.teacherQuestions">
 			<input type="text" ng-model="question.textIs" class="form-control" placeholder="Spurning á íslensku" />
 			<input type="text" ng-model="question.textEn" class="form-control" placeholder="Spurning á ensku" />
-			<input type="url" url-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd (optional)" />
+			<input type="url" ng-model="question.imageUrl" class="form-control" placeholder="Url á ljósmynd" navi="Optional" />
 			
 			<label>Týpu af spurningum: </label>
 			
@@ -64,11 +64,11 @@
 			
 			<div ng-show="question.type == 'multiple' || question.type == 'single'">
 				<p>Svarmöguleikar:</p>
-				<ul class="list-unstyled">
+				<ul class="question-list list-unstyled">
 					<li class="question-option" ng-repeat="answer in question.answers track by $index">
 						<input type="text" ng-model="answer.textIs" class="form-control" placeholder="Svarmöguleiki á íslensku" />
 						<input type="text" ng-model="answer.textEn" class="form-control" placeholder="Svarmöguleiki á ensku" />
-						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Hlekkur að mynd" />
+						<input type="text" ng-model="answer.imageUrl" class="form-control" placeholder="Url á ljósmynd" navi="Optional" />
 						<label>Vægi spurningu: </label>
 						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="1" /> <label>1</label>
 						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="2" /> <label>2</label>
@@ -77,11 +77,14 @@
 						<input type="radio" ng-model="answer.weight" name="tWeightQ{{question.id}}A{{answer.id}}" value="5" /> <label>5</label>
 					</li>
 				</ul>
-				<button class="btn btn-mini" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
+				<button class="btn btn-mini btn-add-question" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
 			</div>
 		</div>
 		<button class="btn btn-mini btn-add-question" ng-click="addTeacherQuestion()">Bæta við spurningu</button>
 		
-		<input type="submit" class="btn btn-lg btn-success" ng-click="addTemplate()" text="Vista">
+		<div class="row-last">
+			<input type="submit" class="btn btn-lg btn-success" ng-click="addTemplate()" value="Vista">
+			<input type="button" class="btn btn-lg" onclick="window.history.back()" value="Bakka">
+		</div>
 	</form>
 </section>
