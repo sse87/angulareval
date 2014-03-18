@@ -37,7 +37,7 @@ angular.module("EvalApp", ["ng", "ngRoute"])
 				LoginFactory.isLoggedIn("admin");
 			}]
 		}
-	}).when("/student/answer/:evalID", {
+	}).when("/student/answer/:courseID/:semesterID/:evalID", {
 		templateUrl: "/view/answer.html",
 		controller: "AnswerCtrl",
 		resolve: {
@@ -186,7 +186,7 @@ angular.module("EvalApp").factory("StudentFactory",
 function($http, $q, API_URL, LoginFactory) {
 
 	var studentEvalsArr = [];
-	var currentEval = {};
+	var currentCourseEval = {};
 
 	return {
 		pullEvals: function () {
@@ -205,23 +205,23 @@ function($http, $q, API_URL, LoginFactory) {
 			});
 			return deferred.promise;
 		},
-		pullCurrentEval: function (id) {
+		pullCurrentCourseEval: function (course, semester, id) {
 			var deferred = $q.defer();
 			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
-			$http.get(API_URL + "/api/v1/evaluations/" + id)
+			$http.get(API_URL + "/api/v1/courses/" + course + "/" + semester + "/evaluations/" + id)
 			.success(function (data, status, headers) {
 				// Update the data
-				currentEval = data;
+				currentEval = data;	
 				// Resolve
 				deferred.resolve(data);
 			}).error(function() {
-				console.log("StudentFactory.pullCurrentEval() ERROR");
+				console.log("StudentFactory.pullCurrentCourseEval() ERROR");
 				deferred.reject();
 			});
 			return deferred.promise;
 		},
-		getCurrentEval: function () {return currentEval; },
-		getEvals: function () { return studentEvalsArr; }
+		getEvals: function () { return studentEvalsArr; },
+		getCurrentCourseEval: function () {return currentEval; },
 	};
 }]);
 /*

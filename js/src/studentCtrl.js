@@ -10,6 +10,7 @@ function ($scope, LoginFactory, StudentFactory) {
 		$scope.evals = data;
 		// log to console for debugging 
 		console.log($scope.evals);
+		console.log(data);
 
 	}, function (errorMessage) {
 		console.log("Error fetching evaluation: " + errorMessage);
