@@ -15,6 +15,12 @@ function ($scope, $location, $routeParams, StudentFactory) {
 		console.log("Error fetching evaluation: " + errorMessage);
 	});
 
-	
-	
+	var evalData = "Eval data needs to go in here";
+
+	$scope.submitEval = function (course, semester, ID) {
+		StudentFactory.pushval().then(function (data) {
+			$location.path("/student");
+		});
+	};
+
 }]);

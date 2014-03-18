@@ -1,76 +1,79 @@
 <section class="container answerSection">
-	<h3>Answer</h3>
+	<form>
+		<h3>Answer</h3>
 
-	<h2>{{evaluation.TitleIS}}</h2>
-	<h4>{{evaluation.IntoTextIS}}</h4>
+		<h2>{{evaluation.TitleIS}}</h2>
+		<h4>{{evaluation.IntoTextIS}}</h4>
 
-	<h4>Spurningar</h4>
-	<ul>
-		<li ng-repeat="cQuestion in evaluation.CourseQuestions">
-			<div class="question">
-				<span>Spurning {{cQuestion.ID}}:</span>
-				<strong>{{cQuestion.TextIS}}</strong>
-			</div>
-			
-			<div ng-show="cQuestion.Type == 'multiple'">
-				<div ng-repeat="answer in cQuestion.Answers">
-					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<input type="checkbox" id="chboxQ{{cQuestion.ID}}A{{answer.ID}}" name="chboxQ{{cQuestion.ID}}" value="{{answer.TextIS}}">
-					<label for="chboxQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
-					<div class="clear"></div>
+		<h4>Spurningar</h4>
+		<ul>
+			<li ng-repeat="cQuestion in evaluation.CourseQuestions">
+				<div class="question">
+					<span>Spurning {{cQuestion.ID}}:</span>
+					<strong>{{cQuestion.TextIS}}</strong>
 				</div>
-			</div>
-			
-			<div ng-show="cQuestion.Type == 'single'">
-				<div ng-repeat="answer in cQuestion.Answers">
-					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<input type="radio" name="radioQ{{cQuestion.ID}}" id="radioQ{{cQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
-					<label for="radioQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
-					<div class="clear"></div>
-				</div>
-			</div>
-			
-			<div ng-show="cQuestion.Type == 'text'">
-				<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-				<textarea class="form-control" rows="3" cols="30"></textarea>
-				<div class="clear"></div>
-			</div>
-			
-		</li>
-	</ul>
-
-	<h4>Kennara Spurningar</h4>
-	<ul>
-		<li ng-repeat="tQuestion in evaluation.TeacherQuestions">
-			<div class="question">
-				<span>Spurning {{tQuestion.ID}}: </span>
-				<strong>{{tQuestion.TextIS}}</strong>
-			</div>
-			
-			<div ng-show="tQuestion.Type == 'multiple'">
 				
-				<div ng-repeat="answer in tQuestion.Answers">
+				<div ng-show="cQuestion.Type == 'multiple'">
+					<div ng-repeat="answer in cQuestion.Answers">
+						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+						<input type="checkbox" id="chboxQ{{cQuestion.ID}}A{{answer.ID}}" name="chboxQ{{cQuestion.ID}}" value="{{answer.TextIS}}">
+						<label for="chboxQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div ng-show="cQuestion.Type == 'single'">
+					<div ng-repeat="answer in cQuestion.Answers">
+						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+						<input type="radio" name="radioQ{{cQuestion.ID}}" id="radioQ{{cQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+						<label for="radioQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div ng-show="cQuestion.Type == 'text'">
 					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<input type="checkbox" id="chbox{{tQuestion.ID}}A{{answer.ID}}" name="chbox{{tQuestion.ID}}" value="{{answer.TextIS}}">
-					<label for="chbox{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<textarea class="form-control" rows="3" cols="30"></textarea>
 					<div class="clear"></div>
 				</div>
-			</div>
+				
+			</li>
+		</ul>
 
-			<div ng-show="tQuestion.Type == 'single'">
-				<div ng-repeat="answer in tQuestion.Answers">
+		<h4>Kennara Spurningar</h4>
+		<ul>
+			<li ng-repeat="tQuestion in evaluation.TeacherQuestions">
+				<div class="question">
+					<span>Spurning {{tQuestion.ID}}: </span>
+					<strong>{{tQuestion.TextIS}}</strong>
+				</div>
+				
+				<div ng-show="tQuestion.Type == 'multiple'">
+					
+					<div ng-repeat="answer in tQuestion.Answers">
+						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+						<input type="checkbox" id="chbox{{tQuestion.ID}}A{{answer.ID}}" name="chbox{{tQuestion.ID}}" value="{{answer.TextIS}}">
+						<label for="chbox{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+						<div class="clear"></div>
+					</div>
+				</div>
+
+				<div ng-show="tQuestion.Type == 'single'">
+					<div ng-repeat="answer in tQuestion.Answers">
+						<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+						<input type="radio" name="radioQ{{tQuestion.ID}}" id="radioQ{{tQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+						<label for="radioQ{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+						<div class="clear"></div>
+					</div>
+				</div>
+
+				<div ng-show="tQuestion.Type == 'text'">
 					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-					<input type="radio" name="radioQ{{tQuestion.ID}}" id="radioQ{{tQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
-					<label for="radioQ{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<textarea class="form-control" rows="3" cols="30"></textarea>
 					<div class="clear"></div>
 				</div>
-			</div>
-
-			<div ng-show="tQuestion.Type == 'text'">
-				<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
-				<textarea class="form-control" rows="3" cols="30"></textarea>
-				<div class="clear"></div>
-			</div>
-		</li>
-	</ul>
+			</li>
+		</ul>
+		<input type="submit" class="btn btn-lg btn-success" ng-click="submitEval()" text="Vista">
+	</form>
 </section
