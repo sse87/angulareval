@@ -176,6 +176,21 @@ function($http, $q, API_URL, LoginFactory) {
 			return deferred.promise;
 			
 		},
+		pushEval: function (templateID, startDate, endDate) {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.post(API_URL + "/api/v1/evaluations", { TemplateID: templateID, StartDate: startDate, EndDate: endDate })
+			.success(function (data, status, headers) {
+				// To be sure it was success then check status for code 204 and 4xx if it was unsuccessful
+				//AdminFactory.pullEvals();
+				deferred.resolve(data);
+			}).error(function () {
+				console.log("AdminFactory.pushTemplates() ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+
+		},
 		getEvals: function () { return adminEvalsArr; },
 		getTemplates: function () { return adminTemplateArr; }
 	};

@@ -8,7 +8,7 @@ function ($scope, LoginFactory, AdminFactory) {
 	
 	// Get evaluations from the API
 	AdminFactory.pullEvals().then(function (data) {
-		$scope.evals = data;
+		$scope.evals = AdminFactory.getEvals();
 		// log to console for debugging 
 		console.log("Admin evals");
 		console.log($scope.evals);
@@ -29,11 +29,16 @@ function ($scope, LoginFactory, AdminFactory) {
 	});
 
 	$scope.showEvalForm = false;
-	$scope.addEvaluation = function () {
-		console.log("addEvaluation()");
-		// TODO
-		
-		$scope.showEvalForm = false;
+	$scope.addEvaluation = function () {		
+		var templateID = $scope.templateID;
+		var startDate = $scope.startDate;
+		var endDate = $scope.endDate;
+
+		AdminFactory.pushEval(templateID, startDate, endDate)
+		.then( function (){
+			AdminFactory.pullEvals();
+			$scope.showEvalForm = false;
+		});
 	};
 	
 	$scope.username = LoginFactory.getUsername();
