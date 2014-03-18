@@ -9,12 +9,24 @@
 		<li ng-repeat="question in evaluation.CourseQuestions">
 			<span>Spurning: {{question.ID}}</span>
 			<span>{{question.TextIS}}</span>
-			<ul>
-				<li ng-repeat="answer in question.Answers">
-					<span>Svör: {{answer.ID}}</span>
-					<p>{{answer.TextIS}}</p>
-				</li>
-			</ul>
+				
+			<div ng-show="question.Type == 'multiple'">
+				<select multiple class="form-control">
+					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
+				</select>
+			</div>
+
+			<div ng-show="question.Type == 'single'">
+				<select class="form-control">
+					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
+				</select>
+			</div>
+
+			<div ng-show="question.Type == 'text'">
+				<textarea class="form-control" rows="3"></textarea>
+			</div>
+	
+			
 		</li>
 	</ul>
 
@@ -23,12 +35,22 @@
 		<li ng-repeat="teacherQuestion in evaluation.TeacherQuestions">
 			<span>Spurning: {{teacherQuestion.ID}}</span>
 			<span>{{teacherQuestion.TextIS}}</span>
-			<ul>
-				<li ng-repeat="teacherAnswer in teacherQuestion.Answers">
-					<span>Svör: {{teacherAnswer.ID}}</span>
-					<p>{{teacherAnswer.TextIS}}</p>
-				</li>
-			</ul>
+			
+			<div ng-show="teacherQuestion.Type == 'multiple'">
+				<select multiple class="form-control">
+					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
+				</select>
+			</div>
+
+			<div ng-show="teacherQuestion.Type == 'single'">
+				<select class="form-control">
+					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
+				</select>
+			</div>
+
+			<div ng-show="teacherQuestion.Type == 'text'">
+				<textarea class="form-control" rows="3"></textarea>
+			</div>
 		</li>
 	</ul>
 </section
