@@ -6,50 +6,70 @@
 
 	<h4>Spurningar</h4>
 	<ul>
-		<li ng-repeat="question in evaluation.CourseQuestions">
-			<span>Spurning: {{question.ID}}</span>
-			<span>{{question.TextIS}}</span>
-				
-			<div ng-show="question.Type == 'multiple'">
-				<select multiple class="form-control">
-					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
-				</select>
+		<li ng-repeat="cQuestion in evaluation.CourseQuestions">
+			<div class="question">
+				<span>Spurning {{cQuestion.ID}}:</span>
+				<strong>{{cQuestion.TextIS}}</strong>
 			</div>
-
-			<div ng-show="question.Type == 'single'">
-				<select class="form-control">
-					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
-				</select>
+			
+			<div ng-show="cQuestion.Type == 'multiple'">
+				<div ng-repeat="answer in cQuestion.Answers">
+					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+					<input type="checkbox" id="chboxQ{{cQuestion.ID}}A{{answer.ID}}" name="chboxQ{{cQuestion.ID}}" value="{{answer.TextIS}}">
+					<label for="chboxQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<div class="clear"></div>
+				</div>
 			</div>
-
-			<div ng-show="question.Type == 'text'">
-				<textarea class="form-control" rows="3"></textarea>
+			
+			<div ng-show="cQuestion.Type == 'single'">
+				<div ng-repeat="answer in cQuestion.Answers">
+					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+					<input type="radio" name="radioQ{{cQuestion.ID}}" id="radioQ{{cQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+					<label for="radioQ{{cQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<div class="clear"></div>
+				</div>
 			</div>
-	
+			
+			<div ng-show="cQuestion.Type == 'text'">
+				<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+				<textarea class="form-control" rows="3" cols="30"></textarea>
+				<div class="clear"></div>
+			</div>
 			
 		</li>
 	</ul>
 
 	<h4>Kennara Spurningar</h4>
 	<ul>
-		<li ng-repeat="teacherQuestion in evaluation.TeacherQuestions">
-			<span>Spurning: {{teacherQuestion.ID}}</span>
-			<span>{{teacherQuestion.TextIS}}</span>
+		<li ng-repeat="tQuestion in evaluation.TeacherQuestions">
+			<div class="question">
+				<span>Spurning {{tQuestion.ID}}: </span>
+				<strong>{{tQuestion.TextIS}}</strong>
+			</div>
 			
-			<div ng-show="teacherQuestion.Type == 'multiple'">
-				<select multiple class="form-control">
-					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
-				</select>
+			<div ng-show="tQuestion.Type == 'multiple'">
+				
+				<div ng-repeat="answer in tQuestion.Answers">
+					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+					<input type="checkbox" id="chbox{{tQuestion.ID}}A{{answer.ID}}" name="chbox{{tQuestion.ID}}" value="{{answer.TextIS}}">
+					<label for="chbox{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<div class="clear"></div>
+				</div>
 			</div>
 
-			<div ng-show="teacherQuestion.Type == 'single'">
-				<select class="form-control">
-					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
-				</select>
+			<div ng-show="tQuestion.Type == 'single'">
+				<div ng-repeat="answer in tQuestion.Answers">
+					<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+					<input type="radio" name="radioQ{{tQuestion.ID}}" id="radioQ{{tQuestion.ID}}A{{answer.ID}}" value="{{answer.TextIS}}">
+					<label for="radioQ{{tQuestion.ID}}A{{answer.ID}}">{{answer.TextIS}}</label>
+					<div class="clear"></div>
+				</div>
 			</div>
 
-			<div ng-show="teacherQuestion.Type == 'text'">
-				<textarea class="form-control" rows="3"></textarea>
+			<div ng-show="tQuestion.Type == 'text'">
+				<div ng-show="answer.ImageURL" class="imageOption" style="background-image:url('{{answer.ImageURL}}');"></div>
+				<textarea class="form-control" rows="3" cols="30"></textarea>
+				<div class="clear"></div>
 			</div>
 		</li>
 	</ul>
