@@ -5,52 +5,53 @@
 	<h4>{{evaluation.IntoTextIS}}</h4>
 
 	<h4>Spurningar</h4>
-	<ul>
-		<li ng-repeat="question in evaluation.CourseQuestions">
-			<span>Spurning: {{question.ID}}</span>
-			<span>{{question.TextIS}}</span>
+	<form>
+		<ul>
+			<li ng-repeat="question in evaluation.CourseQuestions">
+				<span>Spurning: {{question.ID}}</span>
+				<span>{{question.TextIS}}</span>
+					
+				<div ng-show="question.Type == 'multiple'">
+					<select multiple class="form-control">
+						<option ng-repeat="answer in question.Answers" value="answer.ID">{{answer.TextIS}}<option>
+					</select>
+				</div>
+
+				<div ng-show="question.Type == 'single'">
+					<select class="form-control">
+						<option ng-repeat="answer in question.Answers" value="answer.ID">{{answer.TextIS}}<option>
+					</select>
+				</div>
+
+				<div ng-show="question.Type == 'text'">
+					<textarea class="form-control" rows="3"></textarea>
+				</div>					
+			</li>
+		</ul>
+
+		<h4>Kennara Spurningar</h4>
+		<ul>
+			<li ng-repeat="teacherQuestion in evaluation.TeacherQuestions">
+				<span>Spurning: {{teacherQuestion.ID}}</span>
+				<span>{{teacherQuestion.TextIS}}</span>
 				
-			<div ng-show="question.Type == 'multiple'">
-				<select multiple class="form-control">
-					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
-				</select>
-			</div>
+				<div ng-show="teacherQuestion.Type == 'multiple'">
+					<select multiple class="form-control">
+						<option ng-repeat="answer in teacherQuestion.Answers" value="answer.ID">{{answer.TextIS}}<option>
+					</select>
+				</div>
 
-			<div ng-show="question.Type == 'single'">
-				<select class="form-control">
-					<option ng-repeat="answer in question.Answers">{{answer.TextIS}}<option>
-				</select>
-			</div>
+				<div ng-show="teacherQuestion.Type == 'single'">
+					<select class="form-control">
+						<option ng-repeat="answer in teacherQuestion.Answers" value="answer.ID">{{answer.TextIS}}<option>
+					</select>
+				</div>
 
-			<div ng-show="question.Type == 'text'">
-				<textarea class="form-control" rows="3"></textarea>
-			</div>
-	
-			
-		</li>
-	</ul>
-
-	<h4>Kennara Spurningar</h4>
-	<ul>
-		<li ng-repeat="teacherQuestion in evaluation.TeacherQuestions">
-			<span>Spurning: {{teacherQuestion.ID}}</span>
-			<span>{{teacherQuestion.TextIS}}</span>
-			
-			<div ng-show="teacherQuestion.Type == 'multiple'">
-				<select multiple class="form-control">
-					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
-				</select>
-			</div>
-
-			<div ng-show="teacherQuestion.Type == 'single'">
-				<select class="form-control">
-					<option ng-repeat="answer in teacherQuestion.Answers">{{answer.TextIS}}<option>
-				</select>
-			</div>
-
-			<div ng-show="teacherQuestion.Type == 'text'">
-				<textarea class="form-control" rows="3"></textarea>
-			</div>
-		</li>
-	</ul>
+				<div ng-show="teacherQuestion.Type == 'text'">
+					<textarea class="form-control" rows="3"></textarea>
+				</div>
+			</li>
+		</ul>
+		<input type="submit" class="btn btn-lg btn-success" ng-click="submitEval()" text="Vista">
+	</form>
 </section

@@ -235,6 +235,19 @@ function($http, $q, API_URL, LoginFactory) {
 			});
 			return deferred.promise;
 		},
+		pushEval: function (course, semester, id, userEval) {
+			var deferred = $q.defer();
+			$http.defaults.headers.common.Authorization = "Basic " + LoginFactory.getToken();
+			$http.post(API_URL + "/api/v1/courses/" + course + "/" + semester + "/evaluations/" + id, userEval)
+			.success(function (data, status, headers) {
+				// To be sure it was success then check status for code 204 and 4xx if it was unsuccessful
+				deferred.resolve(data);
+			}).error(function () {
+				console.log("StudentFactory.pushEval() ERROR");
+				deferred.reject();
+			});
+			return deferred.promise;
+		},
 		getEvals: function () { return studentEvalsArr; },
 		getCurrentCourseEval: function () {return currentEval; },
 	};
