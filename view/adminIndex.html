@@ -17,14 +17,14 @@
 			<span>{{eval.Status}}</span>
 		</li>
 	</ul>
-	<form ng-show="showEvalForm" class="formNewEval col-md-4">
+	<form ng-show="showEvalForm" ng-submit="addEvaluation()" class="formNewEval col-md-4">
 		<h4>New evaluation</h4>
-		<select class="form-control">
+		<select ng-model="templateID" class="form-control" required>
 			<option ng-repeat="temp in templates" value="{{temp.ID}}">{{temp.TitleIS}}</option>
 		</select>
-		<input type="datetime-local" class="form-control" />
-		<input type="datetime-local" class="form-control" />
-		<input type="submit" ng-click="addEvaluation()" class="btn btn-success" />
+		<input ng-model="startDate" type="datetime-local" class="form-control" />
+		<input ng-model="endDate" type="datetime-local" class="form-control" />
+		<input type="submit" class="btn btn-success" />
 	</form>
 	<div class="clear"></div>
 </section>
